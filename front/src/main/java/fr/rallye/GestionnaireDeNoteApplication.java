@@ -1,13 +1,13 @@
-package fr.application.lanceur;
+package fr.rallye;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MyLocalApplication {
+public class GestionnaireDeNoteApplication {
 
     public static void main(final String[] args) {
-        SpringApplication.run(MyLocalApplication.class, args);
+        SpringApplication.run(GestionnaireDeNoteApplication.class, args);
     }
 
 }
