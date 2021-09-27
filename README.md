@@ -1,6 +1,6 @@
 # workshop
 
-Get started backend
-
-< npm install express
- npm install mariadb >
+## Get started backend
+Backend project is created with:
+* npm install express
+* npm install mariadb
