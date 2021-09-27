@@ -2,5 +2,5 @@
 
 Get started backend
 
-# npm install express
-# npm install mariadb
+< npm install express
+ npm install mariadb >
