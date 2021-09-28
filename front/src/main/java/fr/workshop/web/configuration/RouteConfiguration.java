@@ -11,9 +11,10 @@ public class RouteConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
-        ajouterRedirectionVue(registry, "", WebConstante.PAGE_ACCUEIL);
+        ajouterRedirectionVue(registry, "/", WebConstante.PAGE_ACCUEIL);
 
         ajouterControleurVue(registry, WebConstante.PAGE_ACCUEIL);
+        ajouterControleurVue(registry, WebConstante.PAGE_SE_CONNECTER);
     }
 
     private static void ajouterRedirectionVue(
