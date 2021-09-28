@@ -2,7 +2,6 @@ package fr.workshop.api;
 
 import fr.workshop.exception.ApiException;
 import fr.workshop.web.dto.LoginDto;
-import fr.workshop.web.tools.CookiesTools;
 
 public final class AppelApi {
 
