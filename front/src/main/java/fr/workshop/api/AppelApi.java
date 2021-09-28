@@ -18,8 +18,6 @@ public final class AppelApi {
 
     private static final String GENERATION_TOKEN = URI_API.concat("token");
 
-    private static final Duration REQUEST_TIMEOUT = Duration.ofSeconds(3);
-
     private AppelApi(){
 
     }
