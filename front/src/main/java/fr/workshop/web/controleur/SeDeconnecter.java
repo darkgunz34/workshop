@@ -18,6 +18,6 @@ public class SeDeconnecter {
     public ModelAndView getSeDeconnecter(final Model model, HttpServletResponse res) {
         model.addAttribute("message", "Vous êtes maintenant déconnecter");
         CookiesTools.deleteCookies(res);
-        return new ModelAndView(WebConstante.PAGE_ACCUEIL);
+        return new ModelAndView(WebConstante.PAGE_ACCUEIl_REDIRECT);
     }
 }

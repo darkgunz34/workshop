@@ -61,7 +61,6 @@ public class SeConnecterControleur {
 
         try {
             ControleObjet.champNonVideString(loginDto.getPassword());
-            model.addAttribute("valeur_password", loginDto.getPassword());
         } catch (final ObjetVidException e) {
             model.addAttribute("erreurPassword", "Le mot de passe ne peut pas être vide");
             invalide = true;
