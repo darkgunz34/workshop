@@ -5,7 +5,10 @@ import fr.workshop.web.dto.CreationCompteDto;
 import fr.workshop.web.dto.LoginDto;
 
 import java.io.*;
-import java.net.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
