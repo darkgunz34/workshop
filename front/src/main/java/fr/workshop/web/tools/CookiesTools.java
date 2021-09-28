@@ -1,5 +1,7 @@
 package fr.workshop.web.tools;
 
+import fr.workshop.api.AppelApi;
+import fr.workshop.exception.ApiException;
 import fr.workshop.web.exception.CookiesException;
 
 import javax.servlet.http.Cookie;
@@ -54,6 +56,19 @@ public final class CookiesTools {
                 .findFirst()
                 .map(Cookie::getValue)
                 .orElse(null);
+    }
+
+    public static boolean checkClientConnecter(HttpServletRequest req){
+        try{
+            String token = CookiesTools.readCookies(req);
+            if(token.isEmpty()){
+                return false;
+            }
+            AppelApi.authentificationFromToken(token);
+            return true;
+        }catch (CookiesException | ApiException e){
+            return false;
+        }
     }
 
 
