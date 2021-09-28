@@ -1,6 +1,6 @@
-package fr.rallye.web.dto.factory;
+package fr.workshop.web.dto.factory;
 
-import fr.rallye.web.dto.LoginDto;
+import fr.workshop.web.dto.LoginDto;
 
 public final class LoginDtoFactory {
 

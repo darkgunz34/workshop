@@ -1,4 +1,4 @@
-package fr.rallye.web.tools;
+package fr.workshop.web.tools;
 
 public final class WebTools {
 

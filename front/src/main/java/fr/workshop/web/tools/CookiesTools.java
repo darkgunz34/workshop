@@ -1,6 +1,6 @@
-package fr.rallye.web.tools;
+package fr.workshop.web.tools;
 
-import fr.rallye.web.exception.CookiesException;
+import fr.workshop.web.exception.CookiesException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -11,22 +11,32 @@ public final class CookiesTools {
 
     public static final String COOKIES_NAME = "MyAuthentification";
 
+    /**
+     * expires in 1 hour
+     */
+    public static final int COOKIES_EXPIRATION_TIME_SECONDES = 3600;
+
     private CookiesTools(){
 
     }
 
     public static void createCookies(HttpServletResponse response, String codeToken){
         final Cookie cookie = new Cookie(COOKIES_NAME, codeToken);
-        cookie.setMaxAge(3600); // expires in 1 hour
+        cookie.setMaxAge(COOKIES_EXPIRATION_TIME_SECONDES);
         response.addCookie(cookie);
     }
 
     public static String readCookies(HttpServletRequest req) throws CookiesException {
-        return Arrays.stream(req.getCookies())
+        String cookiesValue = Arrays.stream(req.getCookies())
                 .filter(c -> c.getName().equals(COOKIES_NAME))
                 .findFirst()
                 .map(Cookie::getValue)
                 .orElse(null);
+        if(cookiesValue != null){
+            return cookiesValue ;
+        }else{
+            throw new CookiesException("Aucun cookie de présent sur le domaine");
+        }
     }
 
 

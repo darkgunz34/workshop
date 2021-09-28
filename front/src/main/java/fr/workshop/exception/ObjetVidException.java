@@ -1,4 +1,4 @@
-package fr.rallye.exception;
+package fr.workshop.exception;
 
 public final class ObjetVidException extends Exception {
 

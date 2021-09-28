@@ -1,6 +1,6 @@
-package fr.rallye.tools;
+package fr.workshop.tools;
 
-import fr.rallye.exception.ObjetVidException;
+import fr.workshop.exception.ObjetVidException;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package fr.rallye.web.exception;
+package fr.workshop.web.exception;
 
 public final class LoginDtoException extends Exception {
 

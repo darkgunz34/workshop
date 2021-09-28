@@ -1,7 +1,7 @@
-package fr.rallye.api;
+package fr.workshop.api;
 
-import fr.rallye.exception.ApiException;
-import fr.rallye.web.dto.LoginDto;
+import fr.workshop.exception.ApiException;
+import fr.workshop.web.dto.LoginDto;
 
 public final class AppelApi {
 

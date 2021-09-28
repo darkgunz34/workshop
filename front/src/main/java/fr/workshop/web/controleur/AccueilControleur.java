@@ -1,6 +1,6 @@
-package fr.rallye.web.controleur;
+package fr.workshop.web.controleur;
 
-import fr.rallye.web.constante.WebConstante;
+import fr.workshop.web.constante.WebConstante;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

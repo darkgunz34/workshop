@@ -1,4 +1,4 @@
-package fr.rallye.web.dto;
+package fr.workshop.web.dto;
 
 import lombok.AccessLevel;
 import lombok.Getter;

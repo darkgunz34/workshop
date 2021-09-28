@@ -1,4 +1,4 @@
-package fr.rallye.web.constante;
+package fr.workshop.web.constante;
 
 public final class WebConstante {
 

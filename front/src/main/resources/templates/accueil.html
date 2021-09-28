@@ -3,33 +3,20 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Gestion de Note</title>
+    <title>Application 1</title>
     <link rel="icon" sizes="16x16" th:href="@{/media/images/logoBookStylo.png}" type="image/png">
     <link rel="stylesheet" th:href="@{/style/css/bootstrap.css}">
 </head>
-<body>
 <body class="text-center">
-    <main class="form-signin">
-        <form>
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-
-            <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
+    <main>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="seConnecter.html">Se connecter</a>
+                <a class="navbar-brand" href="#">Se déconnecter</a>
+                <a class="navbar-brand" href="#">Ma page custom</a>
             </div>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
-            </div>
-
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
-            </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-            <p class="mt-5 mb-3 text-muted">© 2021-2022</p>
-        </form>
+        </nav>
+        <p class="mt-5 mb-3 text-muted">© 2021-2022</p>
     </main>
 </body>
 </html>

@@ -1,14 +1,14 @@
-package fr.rallye.web.controleur;
+package fr.workshop.web.controleur;
 
-import fr.rallye.api.AppelApi;
-import fr.rallye.exception.ApiException;
-import fr.rallye.exception.ObjetVidException;
-import fr.rallye.tools.ControleObjet;
-import fr.rallye.web.constante.WebConstante;
-import fr.rallye.web.dto.LoginDto;
-import fr.rallye.web.dto.factory.LoginDtoFactory;
-import fr.rallye.web.exception.LoginDtoException;
-import fr.rallye.web.tools.CookiesTools;
+import fr.workshop.api.AppelApi;
+import fr.workshop.exception.ApiException;
+import fr.workshop.exception.ObjetVidException;
+import fr.workshop.tools.ControleObjet;
+import fr.workshop.web.constante.WebConstante;
+import fr.workshop.web.dto.LoginDto;
+import fr.workshop.web.dto.factory.LoginDtoFactory;
+import fr.workshop.web.exception.LoginDtoException;
+import fr.workshop.web.tools.CookiesTools;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
