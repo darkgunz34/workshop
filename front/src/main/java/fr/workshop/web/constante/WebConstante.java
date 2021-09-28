@@ -9,6 +9,8 @@ public final class WebConstante {
 
     public static final String PAGE_SE_CONNECTER = "seConnecter";
 
+    public static final String PAGE_SE_DECONNECTER = "seDeconnecter";
+
     public static final String PAGE_AUTHENTIFICATION = "authentification";
     public static final String PAGE_AUTHENTIFICATION_REDIRECT = REDIRECT.concat(PAGE_AUTHENTIFICATION);
 

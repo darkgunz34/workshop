@@ -26,6 +26,12 @@ public final class CookiesTools {
         response.addCookie(cookie);
     }
 
+    public static void deleteCookies(HttpServletResponse response){
+        final Cookie cookie = new Cookie(COOKIES_NAME, null);
+        cookie.setMaxAge(1);
+        response.addCookie(cookie);
+    }
+
     public static String readCookies(final HttpServletRequest req) throws CookiesException {
         Cookie[] cookies = req.getCookies();
 
