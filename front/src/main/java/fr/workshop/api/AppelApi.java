@@ -14,4 +14,8 @@ public final class AppelApi {
         return "myTocken";
     }
 
+    public static void authentificationFromToken(final String token) throws ApiException {
+//        throw new ApiException("Token non valide");
+    }
+
 }

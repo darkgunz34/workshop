@@ -30,7 +30,7 @@ public class SeConnecterControleur {
     }
 
     @GetMapping
-    public ModelAndView getSeConnecter() {
+    public ModelAndView getSeConnecter(HttpServletRequest req) {
         return new ModelAndView(WebConstante.PAGE_SE_CONNECTER);
     }
 
@@ -43,7 +43,7 @@ public class SeConnecterControleur {
             controleValeurNonRenseigner(model, loginDto);
             String codeToken = AppelApi.authentificationFromLoginPassword(loginDto);
             CookiesTools.createCookies(response,codeToken);
-            return new ModelAndView(WebConstante.PAGE_AUTHENTIFICATION);
+            return new ModelAndView(WebConstante.PAGE_AUTHENTIFICATION_REDIRECT);
         }catch (LoginDtoException | ApiException e){
             return new ModelAndView(WebConstante.PAGE_SE_CONNECTER);
         }

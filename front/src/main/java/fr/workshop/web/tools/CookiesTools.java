@@ -26,17 +26,27 @@ public final class CookiesTools {
         response.addCookie(cookie);
     }
 
-    public static String readCookies(HttpServletRequest req) throws CookiesException {
-        String cookiesValue = Arrays.stream(req.getCookies())
+    public static String readCookies(final HttpServletRequest req) throws CookiesException {
+        Cookie[] cookies = req.getCookies();
+
+        if(cookies == null){
+            throw new CookiesException("Aucun cookie de présent dans la requête");
+        }else{
+            String cookiesValue = recuperationCookies(cookies);
+
+            if(cookiesValue != null) {
+                return cookiesValue;
+            }
+        }
+        throw new CookiesException("Aucun cookie de présent dans la requête");
+    }
+
+    private static String recuperationCookies(final Cookie[] cookies){
+        return Arrays.stream(cookies)
                 .filter(c -> c.getName().equals(COOKIES_NAME))
                 .findFirst()
                 .map(Cookie::getValue)
                 .orElse(null);
-        if(cookiesValue != null){
-            return cookiesValue ;
-        }else{
-            throw new CookiesException("Aucun cookie de présent sur le domaine");
-        }
     }
 
 
