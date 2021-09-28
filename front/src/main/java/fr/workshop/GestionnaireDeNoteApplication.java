@@ -1,4 +1,4 @@
-package fr.rallye;
+package fr.workshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Se connecter</title>
+    <link rel="icon" sizes="16x16" th:href="@{/media/images/logo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/style/css/bootstrap.css}">
+</head>
+<body class="text-center">
+<main class="form-signin">
+    <form method="post" th:action="@{/seConnecter}" th:object="${loginDto}">
+        <h1 class="h3 mb-3 fw-normal">Authentifiez-vous</h1>
+
+        <div class="form-floating">
+            <input class="form-control" id="login" name="login" placeholder="name@example.com"
+                   th:value="${valeur_login}" type="text" required>
+            <label for="login">Votre nom</label>
+            <div th:text="${erreurLogin}"></div>
+        </div>
+
+        <div class="form-floating">
+            <input class="form-control" id="password" name="password" placeholder="Votre mot de passe"
+                   th:value="${valeur_password}" type="text" required>
+            <label for="password">Votre mot de passe</label>
+            <div th:text="${erreurPassword}"></div>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Se connecter</button>
+    </form>
+    <p class="mt-5 mb-3 text-muted">© 2021-2022</p>
+</main>
+</body>
+</html>
