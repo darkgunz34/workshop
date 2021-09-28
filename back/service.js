@@ -118,7 +118,7 @@ const checkToken = (request, response) => {
     )
 }
 // La fonction pour la vérification des users
-const checkUser = (request, response) => {
+const tryConnectUser = (request, response) => {
     let pass = request.params.password;
     let name = request.params.name;
     pool.query(
@@ -176,6 +176,6 @@ module.exports = {
     createToken,
     updateToken,
     checkToken,
-    checkUser
+    tryConnectUser
 
 }
