@@ -14,8 +14,17 @@ app.get('/', (request, response) => {
     response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
+/*server.post('/login', function(req, res){
+    let login = req.body.login;
+    let password = req.body.password;
+    app.use(cookieParser());
+    let token = service.getToken();
+    res.status(201).send('cookie:' + res.cookie('pyucook',token, { maxAge: 900000, httpOnly: true }));
+});*/
+
 app.get('/users/:id', db.getUserById);
 app.post('/users', db.createUser);
+app.post('/token', db.createToken);
 
 
 app.listen(port, () => {
