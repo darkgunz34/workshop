@@ -1,0 +1,29 @@
+{
+  "name": "workshop",
+  "version": "1.0.0",
+  "description": "Back du workshop",
+  "main": "service.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darkgunz34/workshop.git"
+  },
+  "author": "Stéphan Parichon, Amandine Thon, Nicolas Perez, Georges Garnier, Maxens Marquet, Jeffrey FEVRE",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darkgunz34/workshop/issues"
+  },
+  "homepage": "https://github.com/darkgunz34/workshop#readme",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "body-parser": "^1.19.0",
+    "cron": "^1.8.2",
+    "express": "^4.17.1",
+    "mariadb": "^2.5.4",
+    "pg": "^8.7.1",
+    "query": "^0.2.0",
+    "speakeasy": "^2.0.0"
+  }
+}
