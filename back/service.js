@@ -1,6 +1,7 @@
 const speakeasy = require("speakeasy");
 const res = require("express");
 const uuid = require("uuid")
+const bcrypt = require('bcryptjs');
 
 const { Pool, Client } = require('pg');
 
@@ -117,21 +118,56 @@ const checkToken = (request, response) => {
     )
 }
 // La fonction pour la vérification des users
-/*const checkUser = (request, response) => {
-
-
+const checkUser = (request, response) => {
+    let pass = request.params.password;
+    let name = request.params.name;
     pool.query(
-        'UPDATE token SET token_datetime = NOW() WHERE token = $1',
-        [token],
+        'SELECT password FROM ref_user WHERE user_name = $1',
+        [name],
         (error, results) => {
             if (error) {
                 response.status(401);
                 throw error
             }
-            response.status(201).send('Date update');
+            bcrypt.compare(results.password, pass, function(err2, result2) {
+                if(result2) {
+                    //return callback(true);
+                    createToken();
+                }
+                // return callback(false);
+                response.status(401).send('identifiant incorrect');
+
+            });
         }
     )
-}*/
+}
+
+function checkIfPasswordIsGood(con, user_name, password, bcrypt, res, transport, corrompu, callback) {
+    con.getConnection().then(conn => {
+        let querry = "SELECT * FROM user WHERE identifiant = '" + user_name + "'";
+        console.log(querry);
+        conn.query(querry).then((result) => {
+            if(result.length > 0) {
+                if(corrompu === 1) {
+                    sendMailByType(result[0].email, 4, transport); // envoie email si password corrompu
+                }
+                bcrypt.compare(password, result[0].password, function(err2, result2) {
+                    conn.release();
+                    if(result2) {
+                        return callback(true);
+                    }
+                    return callback(false);
+
+                });
+            }
+            else{
+                conn.release();
+                return callback(false);
+            }
+        });
+    });
+}
+
 
 module.exports = {
     getUserById,
