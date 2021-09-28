@@ -26,6 +26,7 @@ public final class CookiesTools {
         response.addCookie(cookie);
     }
 
+
     public static void deleteCookies(HttpServletResponse response){
         final Cookie cookie = new Cookie(COOKIES_NAME, null);
         cookie.setMaxAge(1);
