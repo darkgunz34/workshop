@@ -5,10 +5,7 @@ import fr.workshop.web.dto.CreationCompteDto;
 import fr.workshop.web.dto.LoginDto;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.time.Duration;
+import java.net.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +14,10 @@ public final class AppelApi {
     private static final String URI_API = "http://localhost:3000/";
 
     private static final String GENERATION_TOKEN = URI_API.concat("token");
+
+    private static final String CHECK_TOKEN = URI_API.concat("checktoken");
+
+    public static final String KEY_TOKEN = "secureToken";
 
     private AppelApi(){
 
@@ -31,6 +32,27 @@ public final class AppelApi {
             parameters.put("param1", loginDto.getLogin());
             parameters.put("param2", loginDto.getPassword());
 
+/*            //placer un cookie : https://www.baeldung.com/java-http-request
+
+            String cookiesHeader = con.getHeaderField("Set-Cookie");
+            List<HttpCookie> cookies = HttpCookie.parse(cookiesHeader);
+
+            CookieManager cookieManager = new CookieManager();
+            CookieHandler.setDefault(cookieManager);
+            cookies.forEach(cookie -> cookieManager.getCookieStore().add(null, cookie));
+
+            Optional<HttpCookie> usernameCookie = cookies.stream()
+                    .findAny().filter(cookie -> cookie.getName().equals("username"));
+            if (usernameCookie == null) {
+                cookieManager.getCookieStore().add(null, new HttpCookie("username", "john"));
+            }
+
+            con.disconnect();
+            con = (HttpURLConnection) url.openConnection();
+
+            con.setRequestProperty("Cookie",
+                    StringUtils.join(cookieManager.getCookieStore().getCookies(), ";"));
+*/
             con.setDoOutput(true);
             DataOutputStream out = new DataOutputStream(con.getOutputStream());
             out.writeBytes(getParamsString(parameters));
@@ -54,7 +76,15 @@ public final class AppelApi {
     }
 
     public static void authentificationFromToken(final String token) throws ApiException {
-//        throw new ApiException("Token non valide");
+        try{
+            URL url = new URL(CHECK_TOKEN);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            String tokenKeyValue = KEY_TOKEN.concat(token);
+            con.setRequestProperty("Cookie", tokenKeyValue);
+        } catch (IOException e) {
+            throw new ApiException("Token invalide");
+        }
     }
 
     public static void creationCompte(final CreationCompteDto creationCompteDto) throws ApiException {
@@ -73,9 +103,10 @@ public final class AppelApi {
         }
 
         String resultString = result.toString();
-        return resultString.length() > 0
-                ? resultString.substring(0, resultString.length() - 1)
-                : resultString;
+        if (resultString.length() > 0) {
+            return resultString.substring(0, resultString.length() - 1);
+        }
+        return resultString;
     }
 
 }
