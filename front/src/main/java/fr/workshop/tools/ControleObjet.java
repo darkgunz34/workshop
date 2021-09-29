@@ -28,4 +28,10 @@ public final class ControleObjet {
             throw new ObjetVidException(VALEUR_IMPOSSIBLE);
         }
     }
+
+    public static void champIdentiqueString(final String s1, final String s2 ) throws ObjetVidException{
+        if(s1 == null || ! s1.equals(s2)){
+            throw new ObjetVidException("Les chaines ne sont pas identiques");
+        }
+    }
 }

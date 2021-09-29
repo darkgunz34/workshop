@@ -7,6 +7,8 @@ public final class WebConstante {
     public static final String PAGE_ACCUEIL = "accueil";
     public static final String PAGE_ACCUEIl_REDIRECT = REDIRECT.concat(PAGE_ACCUEIL);
 
+    public static final String PAGE_CREATION_COMPTE = "creerUnCompte";
+
     public static final String PAGE_SE_CONNECTER = "seConnecter";
 
     public static final String PAGE_SE_DECONNECTER = "seDeconnecter";

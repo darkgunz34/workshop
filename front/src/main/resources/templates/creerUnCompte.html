@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer un compte</title>
+    <link rel="icon" sizes="16x16" th:href="@{/media/images/logo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/style/css/bootstrap.css}">
+</head>
+<body class="text-center">
+<main class="form-signin">
+    <p th:text="${message}"></p>
+    <form method="post" th:action="@{/creerUnCompte}" th:object="${CreationCompteDto}">
+        <h1 class="h3 mb-3 fw-normal">Authentifiez-vous</h1>
+
+        <div class="form-floating">
+            <input class="form-control" id="login" name="login" placeholder="name@example.com"
+                   th:value="${valeur_login}" type="text" required>
+            <label for="login">Votre nom</label>
+            <div th:text="${erreurLogin}"></div>
+        </div>
+
+        <div class="form-floating">
+            <input class="form-control" id="mail" name="mail" placeholder="monadressemail@gmail.com"
+                   th:value="${valeur_mail}" type="email" required>
+            <label for="password">Votre adresse mail</label>
+            <div th:text="${erreurMail}"></div>
+        </div>
+
+        <div class="form-floating">
+            <input class="form-control" id="password" name="password" placeholder="Votre mot de passe"
+                   th:value="${valeur_password}" type="password" required>
+            <label for="password">Votre mot de passe</label>
+            <div th:text="${erreurPassword}"></div>
+        </div>
+
+        <div class="form-floating">
+            <input class="form-control" id="passwordConfirme" name="passwordConfirme" placeholder="Confirmer votre mot de passe"
+                   th:value="${valeur_password_confirme}" type="password" required>
+            <label for="password">Confirmer votre mot de passe</label>
+            <div th:text="${erreurPasswordConfirme}"></div>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Se connecter</button>
+    </form>
+    <p class="mt-5 mb-3 text-muted">© 2021-2022</p>
+</main>
+</body>
+</html>

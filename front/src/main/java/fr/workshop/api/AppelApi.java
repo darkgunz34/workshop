@@ -1,6 +1,7 @@
 package fr.workshop.api;
 
 import fr.workshop.exception.ApiException;
+import fr.workshop.web.dto.CreationCompteDto;
 import fr.workshop.web.dto.LoginDto;
 
 public final class AppelApi {
@@ -15,6 +16,10 @@ public final class AppelApi {
     }
 
     public static void authentificationFromToken(final String token) throws ApiException {
+//        throw new ApiException("Token non valide");
+    }
+
+    public static void creationCompte(final CreationCompteDto creationCompteDto) throws ApiException {
 //        throw new ApiException("Token non valide");
     }
 
