@@ -168,7 +168,7 @@ const tryConnectUser = (request, response) => {
             'SELECT password FROM ref_user WHERE user_name = $1',
             [name],
             (error, results) => {
-                if (error) {
+                if (error || results == undefined) {
                     response.status(401);
                     throw error
                 }
