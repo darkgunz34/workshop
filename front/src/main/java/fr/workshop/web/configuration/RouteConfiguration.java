@@ -15,6 +15,7 @@ public class RouteConfiguration implements WebMvcConfigurer {
         ajouterRedirectionVue(registry, "/seConnecter.html", WebConstante.PAGE_SE_CONNECTER);
 
         ajouterControleurVue(registry, WebConstante.PAGE_ACCUEIL);
+        ajouterControleurVue(registry, WebConstante.PAGE_CREATION_COMPTE);
         ajouterControleurVue(registry, WebConstante.PAGE_SE_CONNECTER);
         ajouterControleurVue(registry, WebConstante.PAGE_SE_DECONNECTER);
     }
