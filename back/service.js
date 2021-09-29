@@ -183,6 +183,22 @@ const tryConnectUser = (request, response) => {
             }
         )
 }
+
+const SuppTokenFromDb = (req, resp) => {
+    let token = req.params.token;
+    pool.query(
+        'DELETE FROM token WHERE token = $1',
+        [token],
+        (error, results) => {
+            if (error) {
+                resp.status(401);
+                throw error
+            } else {
+                resp.status(201).send('token delete')
+            }
+        }
+    )
+}
 module.exports = {
     getUserById,
     createUser,
@@ -190,5 +206,6 @@ module.exports = {
     createToken,
     updateToken,
     checkToken,
-    tryConnectUser
+    tryConnectUser,
+    SuppTokenFromDb
 }
