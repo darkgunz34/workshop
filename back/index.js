@@ -28,7 +28,7 @@ app.post('/token', db.createToken);
 app.put('/token/:id', db.updateToken);
 app.post('/users/:token', db.checkToken);
 app.put('/users/:user&:password', db.createUser);
-app.post('/users/verify/:name&:password', db.checkUser);
+app.post('/users/verify/:name&:password', db.tryConnectUser);
 
 
 app.listen(port, () => {
