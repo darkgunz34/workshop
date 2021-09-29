@@ -48,15 +48,22 @@ const getUserById = (request, response) => {
     })
 }
 const createUser = (request, response) => {
-    const { user_name, password } = request.body
-    console.log(user_name, password);
-    pool.query('INSERT INTO ref_user (user_name, password) VALUES ($1, $2)', [user_name, password], (error, results) => {
-        if (error) {
-            response.status(401);
-            throw error
-        }
-        response.status(201).send(`User added with ID: ${results.insertId}`)
-    })
+    const { user_name, password, email } = request.body
+    let saltRounds = 10;
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+        pool.query(
+            'INSERT INTO ref_user(user_name, password, email) VALUES($1, $2, $3)',
+            [user_name, hash, email],
+            (error, results) => {
+                if (error) {
+                    response.status(401);
+                    throw error
+                } else {
+                    response.status(201).send(`User added with ID: ${results.insertId}`)
+                }
+            }
+        )
+    });
 }
 const getTokenById = (request, response) => {
     const id = parseInt(request.params.id)
@@ -64,22 +71,23 @@ const getTokenById = (request, response) => {
         if (error) {
             response.status(401);
             throw error
+        } else {
+            response.status(200).json(results.rows)
         }
-        response.status(200).json(results.rows)
     })
 }
-const createToken = (request, response) => {
+const createToken = (response) => {
     //app.use(cookieParser());
     let secret32 = uuid.v4();
-    console.log(secret32)
     pool.query('INSERT INTO token (token) VALUES ($1)', [secret32], (error, results) => {
         if (error) {
             response.status(401);
             throw error
+        } else {
+            //response.status(201).send('cookie' + response.cookie('pyucook',secret32, { maxAge: 900000, httpOnly: true }));
+            response.status(201).json(secret32);
 
         }
-        response.status(201).send(secret32);
-        /*response.status(201).send(`User added with ID: ${results.insertId}`)*/
     })
 }
 const updateToken = (request, response) => {
@@ -94,12 +102,12 @@ const updateToken = (request, response) => {
                 response.status(401);
                 throw error
             }
-            response.status(201).send('User added - Cookie:' + response.cookie('pyucook',tokenGen, { maxAge: 900000, httpOnly: true }));
+            else {
+                response.status(201).send('User added - Cookie:' + response.cookie('pyucook',tokenGen, { maxAge: 900000, httpOnly: true }));
+            }
         }
     )
 }
-
-
 const checkToken = (request, response) => {
     const token = request.params.token
     console.log(request)
@@ -112,8 +120,9 @@ const checkToken = (request, response) => {
             if (error) {
                 response.status(401);
                 throw error
+            } else {
+                response.status(201).send('Date update');
             }
-            response.status(201).send('Date update');
         }
     )
 }
@@ -121,54 +130,25 @@ const checkToken = (request, response) => {
 const tryConnectUser = (request, response) => {
     let pass = request.params.password;
     let name = request.params.name;
-    pool.query(
-        'SELECT password FROM ref_user WHERE user_name = $1',
-        [name],
-        (error, results) => {
-            if (error) {
-                response.status(401);
-                throw error
-            }
-            bcrypt.compare(results.password, pass, function(err2, result2) {
-                if(result2) {
-                    //return callback(true);
-                    createToken();
+        pool.query(
+            'SELECT password FROM ref_user WHERE user_name = $1',
+            [name],
+            (error, results) => {
+                if (error) {
+                    response.status(401);
+                    throw error
                 }
-                // return callback(false);
-                response.status(401).send('identifiant incorrect');
-
-            });
-        }
-    )
-}
-
-function checkIfPasswordIsGood(con, user_name, password, bcrypt, res, transport, corrompu, callback) {
-    con.getConnection().then(conn => {
-        let querry = "SELECT * FROM user WHERE identifiant = '" + user_name + "'";
-        console.log(querry);
-        conn.query(querry).then((result) => {
-            if(result.length > 0) {
-                if(corrompu === 1) {
-                    sendMailByType(result[0].email, 4, transport); // envoie email si password corrompu
-                }
-                bcrypt.compare(password, result[0].password, function(err2, result2) {
-                    conn.release();
+                bcrypt.compare(pass, results.rows[0].password, function(err2, result2) {
                     if(result2) {
-                        return callback(true);
+                        createToken(response);
+                    } else {
+                        response.status(401).send('rentre chez toi');
                     }
-                    return callback(false);
-
                 });
+
             }
-            else{
-                conn.release();
-                return callback(false);
-            }
-        });
-    });
+        )
 }
-
-
 module.exports = {
     getUserById,
     createUser,
