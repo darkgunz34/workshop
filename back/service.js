@@ -36,7 +36,12 @@ var job = new CronJob('*!/2 * * * *', function() {
 }, null, true, 'America/Los_Angeles');
 job.start();*/
 
-
+/**
+ * Get user by id
+ * @param request
+ * @param response
+ * Return user data if exist
+ */
 const getUserById = (request, response) => {
     const id = parseInt(request.params.id)
     pool.query('SELECT * FROM ref_user WHERE id = $1', [id], (error, results) => {
@@ -47,13 +52,20 @@ const getUserById = (request, response) => {
         response.status(200).json(results.rows)
     })
 }
+/**
+ * Create user and save data in db
+ * @param request
+ * @param response
+ */
 const createUser = (request, response) => {
-    const { user_name, password, email } = request.body
+    const user_name = request.params.name;
+    const password = request.params.password;
+    const user_email = request.params.email;
     let saltRounds = 10;
     bcrypt.hash(password, saltRounds, function(err, hash) {
         pool.query(
             'INSERT INTO ref_user(user_name, password, email) VALUES($1, $2, $3)',
-            [user_name, hash, email],
+            [user_name, hash, user_email],
             (error, results) => {
                 if (error) {
                     response.status(401);
@@ -65,6 +77,12 @@ const createUser = (request, response) => {
         )
     });
 }
+
+/**
+ * Get a saved token by id
+ * @param request
+ * @param response
+ */
 const getTokenById = (request, response) => {
     const id = parseInt(request.params.id)
     pool.query('SELECT * FROM token WHERE id = $1', [id], (error, results) => {
@@ -76,6 +94,11 @@ const getTokenById = (request, response) => {
         }
     })
 }
+
+/**
+ * Create a new token from the void
+ * @param response
+ */
 const createToken = (response) => {
     //app.use(cookieParser());
     let secret32 = uuid.v4();
@@ -90,9 +113,13 @@ const createToken = (response) => {
         }
     })
 }
+/**
+ * Save updated token in db by id
+ * @param request
+ * @param response
+ */
 const updateToken = (request, response) => {
     const id = parseInt(request.params.id)
-    console.log(request);
     var tokenGen = uuid.v4();
     pool.query(
         'UPDATE token SET token = $1 WHERE id = $2',
@@ -108,11 +135,14 @@ const updateToken = (request, response) => {
         }
     )
 }
+
+/**
+ * Update token date in db
+ * @param request
+ * @param response
+ */
 const checkToken = (request, response) => {
     const token = request.params.token
-    console.log(request)
-    console.log('coucou toto'+token)
-
     pool.query(
         'UPDATE token SET token_datetime = CURRENT_TIMESTAMP WHERE token = $1',
         [token],
@@ -126,7 +156,11 @@ const checkToken = (request, response) => {
         }
     )
 }
-// La fonction pour la vérification des users
+/**
+ * Check user credential and generate token if success
+ * @param request
+ * @param response
+ */
 const tryConnectUser = (request, response) => {
     let pass = request.params.password;
     let name = request.params.name;
@@ -157,5 +191,4 @@ module.exports = {
     updateToken,
     checkToken,
     tryConnectUser
-
 }
