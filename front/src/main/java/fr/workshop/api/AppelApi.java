@@ -5,10 +5,7 @@ import fr.workshop.web.dto.CreationCompteDto;
 import fr.workshop.web.dto.LoginDto;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.time.Duration;
+import java.net.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +18,7 @@ public final class AppelApi {
     private static final String CHECK_TOKEN = URI_API.concat("verify");
 
     public static final String KEY_TOKEN = "secureToken";
-
+    
     private AppelApi(){
 
     }
