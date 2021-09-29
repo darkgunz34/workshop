@@ -17,6 +17,8 @@ public final class AppelApi {
 
     private static final String APPEL_CREATION = URI_API.concat("users/create");
 
+    private static final String APPEL_SUPRESSION = URI_API.concat("users/deco");
+
     private static final String CHECK_TOKEN = URI_API.concat("users");
 
     public static final String KEY_TOKEN = "secureToken";
@@ -115,4 +117,22 @@ public final class AppelApi {
         return resultString;
     }
 
+    public static void deleteCookies(String nameCookie) throws ApiException{
+        try{
+            final StringBuilder sb = new StringBuilder();
+            sb.append(APPEL_SUPRESSION);
+            sb.append('/');
+            sb.append(nameCookie);
+            URL url = new URL(sb.toString());
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setDoOutput(true);
+            if(con.getResponseCode() != HttpStatus.CREATED.value()){
+                throw new ApiException("Création d'un compte invalide");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ApiException("Création d'un compte invalide");
+        }
+    }
 }
