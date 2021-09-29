@@ -3,10 +3,10 @@ package fr.workshop.api;
 import fr.workshop.exception.ApiException;
 import fr.workshop.web.dto.CreationCompteDto;
 import fr.workshop.web.dto.LoginDto;
+import org.springframework.http.HttpStatus;
 
 import java.io.*;
 import java.net.*;
-import java.util.HashMap;
 import java.util.Map;
 
 public final class AppelApi {
@@ -15,7 +15,9 @@ public final class AppelApi {
 
     private static final String APPEL_AUTHENTIFICATION = URI_API.concat("users/verify");
 
-    private static final String CHECK_TOKEN = URI_API.concat("verify");
+    private static final String APPEL_CREATION = URI_API.concat("users/create");
+
+    private static final String CHECK_TOKEN = URI_API.concat("users");
 
     public static final String KEY_TOKEN = "secureToken";
     
@@ -34,32 +36,10 @@ public final class AppelApi {
             URL url = new URL(sb.toString());
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
-
-/*            //placer un cookie : https://www.baeldung.com/java-http-request
-
-            String cookiesHeader = con.getHeaderField("Set-Cookie");
-            List<HttpCookie> cookies = HttpCookie.parse(cookiesHeader);
-
-            CookieManager cookieManager = new CookieManager();
-            CookieHandler.setDefault(cookieManager);
-            cookies.forEach(cookie -> cookieManager.getCookieStore().add(null, cookie));
-
-            Optional<HttpCookie> usernameCookie = cookies.stream()
-                    .findAny().filter(cookie -> cookie.getName().equals("username"));
-            if (usernameCookie == null) {
-                cookieManager.getCookieStore().add(null, new HttpCookie("username", "john"));
-            }
-
-            con.disconnect();
-            con = (HttpURLConnection) url.openConnection();
-
-            con.setRequestProperty("Cookie",
-                    StringUtils.join(cookieManager.getCookieStore().getCookies(), ";"));
-*/
             con.setDoOutput(true);
+
             return readTokenValueFromApi(con.getInputStream());
         } catch (IOException e) {
-            e.printStackTrace();
             throw new ApiException("Token invalide");
         }
     }
@@ -77,18 +57,44 @@ public final class AppelApi {
 
     public static void authentificationFromToken(final String token) throws ApiException {
         try{
-            URL url = new URL(CHECK_TOKEN);
+            final StringBuilder sb = new StringBuilder();
+            sb.append(CHECK_TOKEN);
+            sb.append('/');
+            sb.append(token);
+
+            URL url = new URL(sb.toString());
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             String tokenKeyValue = KEY_TOKEN.concat(token);
-            con.setRequestProperty("Cookie", tokenKeyValue);
+            if(con.getResponseCode() != HttpStatus.CREATED.value()){
+                throw new ApiException("Refresh token invalide");
+            }
         } catch (IOException e) {
             throw new ApiException("Token invalide");
         }
     }
 
     public static void creationCompte(final CreationCompteDto creationCompteDto) throws ApiException {
-//        throw new ApiException("Token non valide");
+        try{
+            final StringBuilder sb = new StringBuilder();
+            sb.append(APPEL_CREATION);
+            sb.append('/');
+            sb.append(creationCompteDto.getLogin());
+            sb.append('&');
+            sb.append(creationCompteDto.getPassword());
+            sb.append('&');
+            sb.append(creationCompteDto.getMail());
+            URL url = new URL(sb.toString());
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setDoOutput(true);
+            if(con.getResponseCode() != HttpStatus.CREATED.value()){
+                throw new ApiException("Création d'un compte invalide");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ApiException("Création d'un compte invalide");
+        }
     }
 
     private static String getParamsString(Map<String, String> params)
