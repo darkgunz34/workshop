@@ -13,9 +13,9 @@ public final class AppelApi {
 
     private static final String URI_API = "http://localhost:3000/";
 
-    private static final String GENERATION_TOKEN = URI_API.concat("token");
+    private static final String APPEL_AUTHENTIFICATION = URI_API.concat("users/verify");
 
-    private static final String CHECK_TOKEN = URI_API.concat("checktoken");
+    private static final String CHECK_TOKEN = URI_API.concat("verify");
 
     public static final String KEY_TOKEN = "secureToken";
 
@@ -25,12 +25,15 @@ public final class AppelApi {
 
     public static String authentificationFromLoginPassword(final LoginDto loginDto) throws ApiException {
         try{
-            URL url = new URL(GENERATION_TOKEN);
+            final StringBuilder sb = new StringBuilder();
+            sb.append(APPEL_AUTHENTIFICATION);
+            sb.append('/');
+            sb.append(loginDto.getLogin());
+            sb.append('&');
+            sb.append(loginDto.getPassword());
+            URL url = new URL(sb.toString());
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
-            Map<String, String> parameters = new HashMap<>();
-            parameters.put("param1", loginDto.getLogin());
-            parameters.put("param2", loginDto.getPassword());
 
 /*            //placer un cookie : https://www.baeldung.com/java-http-request
 
@@ -54,12 +57,9 @@ public final class AppelApi {
                     StringUtils.join(cookieManager.getCookieStore().getCookies(), ";"));
 */
             con.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes(getParamsString(parameters));
-            out.flush();
-            out.close();
             return readTokenValueFromApi(con.getInputStream());
         } catch (IOException e) {
+            e.printStackTrace();
             throw new ApiException("Token invalide");
         }
     }
