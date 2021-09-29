@@ -10,8 +10,14 @@
 <body class="text-center">
 <main class="form-signin">
     <p th:text="${message}"></p>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="accueil">Retour à la page d'accueil</a>
+            <a class="navbar-brand" href="seConnecter">Se connecter</a>
+        </div>
+    </nav>
     <form method="post" th:action="@{/creerUnCompte}" th:object="${CreationCompteDto}">
-        <h1 class="h3 mb-3 fw-normal">Authentifiez-vous</h1>
+        <h1 class="h3 mb-3 fw-normal">Créer un compte</h1>
 
         <div class="form-floating">
             <input class="form-control" id="login" name="login" placeholder="name@example.com"
@@ -41,7 +47,7 @@
             <div th:text="${erreurPasswordConfirme}"></div>
         </div>
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Se connecter</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Créer un compte</button>
     </form>
     <p class="mt-5 mb-3 text-muted">© 2021-2022</p>
 </main>
