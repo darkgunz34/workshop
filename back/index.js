@@ -23,7 +23,7 @@ app.get('/', (request, response) => {
 });*/
 
 app.get('/users/:id', db.getUserById);
-app.post('/users', db.createUser);
+app.post('/users/create/:name&:password&:email', db.createUser);
 app.post('/token', db.createToken);
 app.put('/token/:id', db.updateToken);
 app.post('/users/:token', db.checkToken);
