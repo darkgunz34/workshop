@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon accès personnel</title>
+    <link rel="icon" sizes="16x16" th:href="@{/media/images/logoBookStylo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/style/css/bootstrap.css}">
+</head>
+<body class="text-center">
+<main>
+    <p th:text="${message}"></p>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="accueil">Retournez à l'accueil</a>
+            <a class="navbar-brand" href="seDeconnecter">Se déconnecter</a>
+        </div>
+    </nav>
+    <br>
+    <p>Vous pouvez maintenant accéder à vos apps personnalisés !!</p>
+</main>
+</body>
+</html>
