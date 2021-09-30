@@ -15,13 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 public class AccueilControleur {
     @GetMapping
     public ModelAndView getAccueil(HttpServletRequest req, Model model) {
-        if(CookiesTools.checkClientConnecter(req)){
-            model.addAttribute("client","true");
-        }else{
-            model.addAttribute("client","false");
-        }
-        return new ModelAndView(WebConstante.PAGE_ACCUEIL)
-        ;
+        model.addAttribute("client",CookiesTools.checkClientConnecter(req) ? "true" : "false");
+        return new ModelAndView(WebConstante.PAGE_ACCUEIL);
     }
 
 }
