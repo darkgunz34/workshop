@@ -1,13 +1,13 @@
-package group.workshop.workshopapi;
+package group.workshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WorkshopapiApplication {
+public class WorkshopApplicationBis {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WorkshopapiApplication.class, args);
+		SpringApplication.run(WorkshopApplicationBis.class, args);
 	}
 
 }
