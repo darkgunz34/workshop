@@ -11,7 +11,7 @@ import java.util.Map;
 
 public final class AppelApi {
 
-    private static final String URI_API = "http://localhost:3000/";
+    private static final String URI_API = "http://back:3000/";
 
     private static final String APPEL_AUTHENTIFICATION = URI_API.concat("users/verify");
 
