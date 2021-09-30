@@ -12,6 +12,7 @@
     <form method="post" th:action="@{/seConnecter}" th:object="${loginDto}">
         <h1 class="h3 mb-3 fw-normal">Authentifiez-vous</h1>
 
+        <p th:text="${message}"></p>
         <div class="form-floating">
             <input class="form-control" id="login" name="login" placeholder="name@example.com"
                    th:value="${valeur_login}" type="text" required>

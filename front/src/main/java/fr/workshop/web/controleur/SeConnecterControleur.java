@@ -45,6 +45,7 @@ public class SeConnecterControleur {
             CookiesTools.createCookies(response,codeToken);
             return new ModelAndView(WebConstante.PAGE_AUTHENTIFICATION_REDIRECT);
         }catch (LoginDtoException | ApiException e){
+            model.addAttribute("message", "Votre login ou votre mot de passe sont invalide.");
             return new ModelAndView(WebConstante.PAGE_SE_CONNECTER);
         }
     }

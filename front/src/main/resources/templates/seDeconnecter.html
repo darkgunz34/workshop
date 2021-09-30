@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vous êtes déconnecter</title>
+    <link rel="icon" sizes="16x16" th:href="@{/media/images/logo.png}" type="image/png">
+    <link rel="stylesheet" th:href="@{/style/css/bootstrap.css}">
+</head>
+<body class="text-center">
+<main class="form-signin">
+    <h1 class="h3 mb-3 fw-normal">Vous êtes maintenant déconnecter</h1>
+</main>
+<script>
+    setTimeout(fun, 2000);
+
+    function fun() {
+        window.location.replace("accueil");
+    }
+
+</script>
+</body>
+</html>
