@@ -9,7 +9,7 @@ import java.net.URL;
 
 public final class AppelApi {
 
-    private static final String URI_API = "http://localhost:3000/";
+    private static final String URI_API = "http://back:3000/";
 
     private static final String CHECK_TOKEN = URI_API.concat("users");
 
