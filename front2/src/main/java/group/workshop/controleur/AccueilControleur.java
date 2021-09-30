@@ -1,7 +1,10 @@
 package group.workshop.controleur;
 
+import group.workshop.api.AppelApi;
+import group.workshop.exception.ApiException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
@@ -12,16 +15,25 @@ import java.util.Arrays;
 @RequestMapping(value = {"/acceuil", "/"})
 public class AccueilControleur {
 
-    final static String COOKIES_NAME = "MyAuthentification";
+    private static final String COOKIES_NAME = "MyAuthentification";
 
     @GetMapping
     public static ModelAndView GetAcceuil(final HttpServletRequest req) {
-        return new ModelAndView(readCookies(req) ? "Authentified" : "NotAuthentified");
+        try{
+            Cookie[] cookies = req.getCookies();
+            if(Boolean.TRUE.equals(readCookies(cookies))){
+                String token = recuperationCookies(cookies);
+                AppelApi.authentificationFromToken(token);
+                return new ModelAndView("Authentified");
+            }
+        }catch(ApiException e){
+            return new ModelAndView("NotAuthentified");
+        }
+        return new ModelAndView("NotAuthentified");
     }
 
-    public static Boolean readCookies(final HttpServletRequest req) {
-        Cookie[] cookies = req.getCookies();
-        return cookies != null && recuperationCookies(cookies) != null ? true : false;
+    public static Boolean readCookies(final Cookie[] cookies) {
+        return cookies != null && recuperationCookies(cookies) != null;
     }
 
 
